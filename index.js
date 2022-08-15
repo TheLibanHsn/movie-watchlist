@@ -43,9 +43,14 @@ async function getMovie() {
       
     });
   } catch (err) {
-    movieLists.innerHTML = `
+     setTimeout(()=>{
+            document.querySelector('.loader').style.display = "none";
+       movieLists.innerHTML = `
         <h2 class='error'>'${searchMovie.value}' Search results aren't found , try again...</h2>
-    `
+      `
+       
+     },2000);
+    
     searchMovie.value = ''
   }
 }
