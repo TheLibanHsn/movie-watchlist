@@ -105,9 +105,7 @@ img {
   color: #fff;
 }
 
-.movie-lists {
-  
-  
+.movie-lists { 
   font-size: 0.9rem;
   max-width: 1000px;
   text-align: center;
@@ -118,6 +116,8 @@ img {
   
 }
 .watchlist-empty {
+    display: grid;
+    place-items:center;
     margin: 1rem auto; 
     padding:0.5rem 1rem;
     letter-spacing: 2px;
@@ -136,6 +136,11 @@ img {
 .watchlist-empty a:hover{
     color: rgb(143, 20, 20);
     text-decoration: none;
+}
+
+.error {
+  color: red;
+  margin: 2rem auto;
 }
 
 /* Loader */
@@ -181,19 +186,19 @@ img {
   
 }
 .search-section{
+    width:90%;
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
   justify-content: center;
   
 }
 #search {
-    flex-grow: 2;
-    flex-shrink: 1;
+    flex: 1 100%;
 }
 
-.error {
-  color: red;
-  margin: 2rem auto;
-}
+
+
 .wrapper {
   display: flex;
   margin-bottom: .5rem;
@@ -265,6 +270,9 @@ img {
     .wrapper,
      .movie-poster{
         width: 48%;
+    }
+    .watchlist-empty {
+        font-size: 2rem;
     }
     
 }
