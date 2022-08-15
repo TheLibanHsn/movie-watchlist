@@ -12,6 +12,7 @@ searchBtn.addEventListener("click", getMovie);
 
 //This function fetches movie data from omdbapi
 async function getMovie() {
+    document.querySelector('.loader').style.display = "block";
   try {
         const res = await fetch(
         `https://www.omdbapi.com/?apikey=b2ba0579&s=${searchMovie.value}`
@@ -22,13 +23,19 @@ async function getMovie() {
         movies.Search.forEach((movie) => {
             const imdbID = movie.imdbID;
         
-
+            
             fetch(`https://www.omdbapi.com/?apikey=b2ba0579&i=${imdbID}`)
                 .then(res => res.json())
                 .then(data => { 
-                        
+                    
+                    
+                    setTimeout(()=>{
+                        document.querySelector('.loader').style.display = "none";
                         movieLists.innerHTML += displayMoviesHtml(data);
                         movieArray.push(data);
+                    },2000)
+                        
+                        
         }) 
       //clears search input 
       movieLists.innerHTML = ''
@@ -67,15 +74,26 @@ function displayMoviesHtml(movie) {
 
 // When you click Add watchlist button, this func enables you to add and save your 
 // favorite movie to localStorage   
+
 function addToWatchList (id,event){
     let btnText = event.target;
-    btnText.textContent = '✅ Added'
     
+    let localStorageKeys = [];
+    for(let x = 0; x<localStorage.length; x++){
+        localStorageKeys.push(localStorage.key(x))
+    }
+   
+        
+  if(localStorageKeys.includes(id)){
+       btnText.textContent = '✍ Already Exists'
+  }
   
-  for (let i =0 ; i<movieArray.length; i++) {
-    if(movieArray[i].imdbID == id){
-      
-      let WatchListHtml = `
+  else { 
+      for (let i =0 ; i<movieArray.length; i++) {
+          
+         if(movieArray[i].imdbID === id){
+         btnText.textContent = '✅ Added'
+        let WatchListHtml = `
         <div class='wrapper' id='${id}'>
           <img src='${movieArray[i].Poster}' class='movie-poster'>
           <div class='movie-intro'>
@@ -96,7 +114,7 @@ function addToWatchList (id,event){
       localStorage.setItem(id, JSON.stringify(WatchListHtml))
       
       
-      
+      }
     }
     
   }
